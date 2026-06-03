@@ -3,8 +3,10 @@ import { Clock, CarFront, Contact } from 'lucide-react';
 
 // Import Komponen & Data
 import CarCard from '../components/CarCard';
-import { carsData } from '../data/carsData'; // Pastikan path folder data-nya benar!
-
+import { carsData } from '../data/carsData'; 
+import MotorCard from '../components/MotorCard';
+import { motorsData } from '../data/dataMotor';
+import imgBannerTour from '../assets/TripLombokTermurah.png'; 
 // Import Gambar Hero & Sponsor
 import heroImg from '../assets/hero.webp'; 
 import sponsor1 from '../assets/sponsor1.webp';
@@ -138,6 +140,78 @@ export default function Home({ navigateTo }) {
         </div>
       </section>
 
+      {/* ========================================= */}
+      {/* 7. SEWA MOTOR */}
+      {/* ========================================= */}
+      <section className="py-8 bg-white mb-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-[1400px]">
+          
+          <div className="mb-10 pl-2">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Sewa Motor</h2>
+            <div className="w-24 md:w-32 h-1.5 bg-[#0B7A3E]"></div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {/* Ambil 4 motor pertama untuk di Home */}
+            {motorsData.slice(0, 4).map((motor) => (
+              <MotorCard key={motor.id} motor={motor} navigateTo={navigateTo} />
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <button onClick={() => navigateTo('sewa')} className="bg-[#F59E0B] text-white px-8 py-3 rounded-md font-bold hover:bg-amber-600 transition shadow-md text-sm tracking-wide">
+              PILIHAN LAINNYA
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================= */}
+      {/* 8. BANNER TOUR LOMBOK */}
+      {/* ========================================= */}
+      <section className="relative w-full overflow-hidden flex flex-col md:flex-row bg-[#0B7A3E] cursor-pointer group" onClick={() => navigateTo('tour')}>
+        
+        {/* Mobile Display Image */}
+        <div className="w-full h-[250px] md:hidden relative z-0">
+           <img src={imgBannerTour} alt="Banner Tour" className="w-full h-full object-cover" />
+        </div>
+
+        {/* Desktop Left Content Image */}
+        <div className="hidden md:flex absolute top-0 bottom-0 left-0 w-[55%] z-0">
+           <img src={imgBannerTour} alt="Banner Tour" className="w-full h-full object-cover object-left" />
+        </div>
+
+        {/* Desktop Green Diagonal Overlay (FIX GARIS PUTIH HILANG) */}
+        {/* Langsung pasang bg hijau, miringkan, dan beri border tanpa bungkus overflow */}
+        <div className="hidden md:block absolute -top-10 -bottom-10 left-[48%] w-[60%] bg-[#0B7A3E] z-10 transform -skew-x-[12deg] border-l-[6px] border-white"></div>
+
+        {/* Right Content (Text & CTA) */}
+        {/* Tambah 'relative' agar z-20 berfungsi sempurna menumpuk di atas hijau */}
+        <div className="relative w-full md:w-[50%] flex flex-col justify-center text-center md:text-right py-14 px-6 md:pr-10 lg:pr-16 z-20 md:ml-auto">
+          <h2 className="text-3xl md:text-4xl lg:text-[44px] font-bold text-[#F59E0B] mb-6 leading-tight font-serif">
+            Paket Tour Lombok <br/> Trip Harian
+          </h2>
+          
+          <p className="text-white text-sm md:text-base lg:text-[17px] max-w-xl mx-auto md:ml-auto md:mr-0 mb-8 leading-relaxed">
+            Trip Harian Lombok istimewa bersama kami, menjelajah pulau lombok yang idah dan eksotis dengan alam <span className="underline underline-offset-4 decoration-1">pantai</span>, <span className="underline underline-offset-4 decoration-1">gunung</span>, <span className="underline underline-offset-4 decoration-1">air terjun</span> dan banyak lagi, saatnya liburan di Indonesia aja, gak kalah cantik. Liburan bersama kami anda akan mendapatkan transportasi dan BBm gratis selama trip anda.
+          </p>
+          
+          <button className="bg-[#F59E0B] text-white px-8 py-4 rounded-md font-bold group-hover:bg-amber-600 transition shadow-lg text-xs md:text-[15px] self-center md:self-end tracking-wide">
+            CARI TOUR LOMBOK YANG COCOK BUAT KAMU
+          </button>
+        </div>
+      </section>
+
+      {/* ========================================= */}
+      {/* 9. TEKS PENUTUP */}
+      {/* ========================================= */}
+      <section className="w-full bg-white pt-16 pb-8">
+         <h3 className="text-center text-[#0B7A3E] text-base md:text-xl lg:text-2xl font-normal px-4">
+           Jadikan setiap perjalanan anda lebih istimewa selama di Lombok
+         </h3>
+      </section>
+
     </div>
+    
   );
 }
