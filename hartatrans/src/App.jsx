@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-
 import Navbar from './components/Navbar';
-import Home from './pages/Home'; 
+import Home from './pages/Home';
+import Tour from './pages/Tour'; // Pastikan Tour di-import
 import Footer from './components/Footer';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
-  const [cart, setCart] = useState([]); 
+  const [cart, setCart] = useState([]);
 
   const navigateTo = (page) => {
     setCurrentPage(page);
@@ -14,22 +14,16 @@ export default function App() {
   };
 
   return (
-    // Hanya ada SATU div pembungkus utama di sini
     <div className="font-sans text-gray-800 bg-white relative">
       
-      {/* NAVBAR (Selalu muncul di atas) */}
-      <Navbar 
-        currentPage={currentPage} 
-        navigateTo={navigateTo} 
-        cartLength={cart.length} 
-      />
+      <Navbar currentPage={currentPage} navigateTo={navigateTo} cartLength={cart.length} />
 
-      {/* AREA KONTEN UTAMA (Berubah sesuai halaman yang diklik) */}
       <main className="w-full">
         {currentPage === 'home' && <Home navigateTo={navigateTo} />}
+        {currentPage === 'tour' && <Tour navigateTo={navigateTo} />}
         
-        {/* Placeholder halaman lain */}
-        {currentPage !== 'home' && (
+        {/* Placeholder untuk halaman yang belum dibuat (misal: Sewa, Driver, Cart) */}
+        {currentPage !== 'home' && currentPage !== 'tour' && (
           <div className="flex flex-col items-center justify-center pt-32 pb-32 px-4 text-center min-h-[70vh]">
             <h2 className="text-2xl font-bold text-gray-400 mb-4">
               Halaman <span className="uppercase text-[#0B7A3E]">{currentPage}</span> belum dirakit! 🚧
@@ -44,8 +38,7 @@ export default function App() {
         )}
       </main>
 
-      <Footer /> 
-
+      <Footer />
     </div>
   );
 }
