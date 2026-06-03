@@ -3,7 +3,7 @@ import React from 'react';
 export default function MotorCard({ motor, navigateTo }) {
   return (
     <div 
-      onClick={() => navigateTo('sewa')}
+      onClick={() => navigateTo('sewaDetail', motor.id)} // <-- UPDATE DI SINI
       className="bg-white rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.08)] border border-gray-100 flex flex-col overflow-hidden transition-transform hover:-translate-y-1 cursor-pointer pb-4"
     >
       {/* Gambar Motor (Kotak) */}
