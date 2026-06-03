@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Clock, CarFront, Contact, Star } from 'lucide-react';
+import { initialReviewsData } from '../data/dataReview';
 
 // Import Komponen & Data
 import CarCard from '../components/CarCard';
@@ -18,10 +19,20 @@ import sponsor6 from '../assets/sponsor6.webp';
 
 export default function Home({ navigateTo }) {
   
+  // --- TAMBAHKAN KODE INI ---
+  const [homeReviews, setHomeReviews] = useState([]);
+
+  useEffect(() => {
+    const savedReviews = localStorage.getItem('hartaTransReviews');
+    if (savedReviews) {
+      setHomeReviews(JSON.parse(savedReviews));
+    } else {
+      setHomeReviews(initialReviewsData);
+    }
+  }, []);
   // Ambil maksimal 4 mobil untuk ditampilkan di halaman depan
   const regularCars = carsData.filter(car => car.category === 'regular').slice(0, 4);
   const bisnisCars = carsData.filter(car => car.category === 'bisnis').slice(0, 4);
-
   return (
     <div className="animate-fadeIn bg-white">
       
@@ -220,21 +231,27 @@ export default function Home({ navigateTo }) {
             Ulasan Pelanggan
           </h2>
 
-          {/* Grid Review (Nanti kotak ini bisa kamu ganti dengan script widget dari Elfsight/Trustindex) */}
+          {/* Grid Review Dinamis (Menampilkan maksimal 4 review terbaru) */}
+          {/* Grid Review Dinamis */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((item) => (
-              <div key={item} className="bg-white p-6 rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] border border-gray-100">
-                <h4 className="font-bold text-gray-900 text-[17px]">Nama User</h4>
-                <p className="text-xs text-gray-400 mb-4">1 Year Ago</p>
+            {homeReviews.slice(0, 4).map((review) => ( // <-- GANTI DI SINI
+              <div key={review.id} className="bg-white p-6 rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] border border-gray-100 flex flex-col">
+                <h4 className="font-bold text-gray-900 text-[17px]">{review.name}</h4>
+                <p className="text-xs text-gray-400 mb-4">{review.date}</p>
                 
                 <div className="flex gap-1 mb-4">
+                  {/* Looping bintang sesuai rating */}
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={16} fill="#F59E0B" className="text-[#F59E0B]" />
+                    <Star 
+                      key={i} 
+                      size={16} 
+                      className={i < review.rating ? "text-[#F59E0B] fill-[#F59E0B]" : "text-gray-200 fill-gray-200"} 
+                    />
                   ))}
                 </div>
                 
-                <p className="text-[15px] text-gray-700 leading-relaxed">
-                  driver nya berpengalaman, ramah pelayanannya, pokoknya jangan ragu sewa mobil...
+                <p className="text-[15px] text-gray-700 leading-relaxed italic line-clamp-4">
+                  "{review.comment}"
                 </p>
               </div>
             ))}
@@ -247,6 +264,7 @@ export default function Home({ navigateTo }) {
           </div>
         </div>
       </section>
+      
       
     </div>
     

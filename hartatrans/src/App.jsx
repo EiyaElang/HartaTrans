@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Tour from './pages/Tour'; // Pastikan Tour di-import
 import Footer from './components/Footer';
+import TourDetail from './pages/TourDetail';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -21,9 +22,10 @@ export default function App() {
       <main className="w-full">
         {currentPage === 'home' && <Home navigateTo={navigateTo} />}
         {currentPage === 'tour' && <Tour navigateTo={navigateTo} />}
+        {currentPage === 'tourDetail' && <TourDetail navigateTo={navigateTo} />}
         
-        {/* Placeholder untuk halaman yang belum dibuat (misal: Sewa, Driver, Cart) */}
-        {currentPage !== 'home' && currentPage !== 'tour' && (
+        {/* TAMBAHKAN currentPage !== 'tourDetail' DI BAWAH INI */}
+        {currentPage !== 'home' && currentPage !== 'tour' && currentPage !== 'tourDetail' && (
           <div className="flex flex-col items-center justify-center pt-32 pb-32 px-4 text-center min-h-[70vh]">
             <h2 className="text-2xl font-bold text-gray-400 mb-4">
               Halaman <span className="uppercase text-[#0B7A3E]">{currentPage}</span> belum dirakit! 🚧

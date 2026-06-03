@@ -54,7 +54,7 @@ export default function TourCard({ tour, type, navigateTo }) {
           
           <button 
             // Ganti ini ke halaman detail tour nanti jika sudah ada
-            onClick={() => alert(`Menuju detail: ${tour.title}`)} 
+            onClick={() => navigateTo('tourDetail')}
             className="bg-[#0B7A3E] text-white px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-green-700 transition"
           >
             Pilih Mobil
