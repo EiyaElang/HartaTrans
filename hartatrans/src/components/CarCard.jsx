@@ -1,54 +1,64 @@
 import React from 'react';
+import { Settings, Users, Star } from 'lucide-react';
 
 export default function CarCard({ car, navigateTo }) {
-  // Fungsi format harga (mengecek apakah angka atau tulisan 'Unavailable')
+  // Fungsi format angka ke format Rupiah (ex: 450000 -> 450.000)
   const formatPrice = (price) => {
-    if (price === 'Unavailable') return <span className="text-red-500 font-bold text-sm">Unavailable</span>;
-    return `Rp ${price.toLocaleString('id-ID')}`;
+    if (price === 'Unavailable') return 'Hubungi Kami';
+    return new Intl.NumberFormat('id-ID').format(price);
   };
+
+  // Tentukan harga termurah (Start from)
+  const startPrice = car.lepasKunci !== 'Unavailable' ? car.lepasKunci : car.bbmDriver;
 
   return (
     <div 
-      onClick={() => navigateTo('detail_mobil', car)} 
-      className="w-full mx-auto bg-white rounded-xl md:rounded-3xl shadow-md hover:shadow-lg border border-gray-100 flex flex-col cursor-pointer group relative overflow-hidden transition-transform hover:-translate-y-1"
+      // Opsional: Bikin seluruh area card bisa diklik menuju halaman sewa
+      onClick={() => navigateTo('sewa')}
+      className="bg-white rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.08)] border border-gray-100 flex flex-col overflow-hidden group transition-transform hover:-translate-y-1 cursor-pointer"
     >
       
-      {/* Gambar Mobil */}
-      <div className="h-[120px] sm:h-[180px] md:h-[220px] lg:h-[250px] w-full flex items-center justify-center p-4">
+      {/* Jika gambar mobilmu PNG transparan, latar abu-abunya (bg-gray-200) akan terlihat seperti di desain */}
+      <div className="w-full aspect-square bg-gray-200 relative overflow-hidden">
          <img 
            src={car.img} 
            alt={car.name} 
-           className="w-full h-full object-contain group-hover:scale-105 transition duration-500 drop-shadow-xl mix-blend-multiply" 
+           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
          />
       </div>
+      
+      {/* 2. BAGIAN TEKS & INFO (Padding proporsional) */}
+      <div className="p-5 md:p-6 flex flex-col flex-grow">
+        
+        {/* Judul Mobil */}
+        <h3 className="font-bold text-[22px] text-gray-900 mb-3 leading-tight">{car.name}</h3>
+        
+        {/* Transmisi */}
+        <div className="flex items-center text-gray-500 text-[15px] mb-2.5">
+           <Settings size={18} className="mr-2" strokeWidth={2} /> 
+           {car.trans || 'Automatic/Manual'}
+        </div>
+        
+        {/* Kursi & Rating */}
+        <div className="flex items-center text-gray-500 text-[15px] mb-6 gap-6">
+           <div className="flex items-center">
+             <Users size={18} className="mr-2" strokeWidth={2} /> 
+             {car.seat || 6}
+           </div>
+           <div className="flex items-center">
+             <Star size={18} className="mr-2" strokeWidth={2} /> 
+             {car.rating || 4.7}
+           </div>
+        </div>
+        
+        {/* Harga (Rata Kiri, Warna Gelap) */}
+        <div className="mt-auto pt-1">
+           <p className="text-[15px] text-gray-500 mb-1">Start from</p>
+           <p className="text-gray-900 font-medium text-[22px] tracking-tight">
+             {startPrice === 'Hubungi Kami' ? startPrice : `Rp. ${formatPrice(startPrice)}`}
+           </p>
+        </div>
 
-      {/* Detail Harga & Info */}
-      <div className="px-4 pb-5 md:px-6 md:pb-6 flex-grow flex flex-col justify-end bg-white z-20">
-         <h3 className="font-bold text-lg md:text-[22px] text-black mb-3 border-b pb-2">{car.name}</h3>
-         
-         <div className="flex flex-col gap-2 mb-4">
-            {/* Harga Lepas Kunci */}
-            <div className="flex justify-between items-center bg-gray-50 p-2 rounded-lg">
-               <span className="text-gray-500 text-[10px] md:text-xs font-semibold">Lepas Kunci</span>
-               <div className="text-right">
-                  <p className="font-bold text-[#0B7A3E] text-xs md:text-sm">{formatPrice(car.lepasKunci)}</p>
-                  {car.lepasKunci !== 'Unavailable' && <span className="text-[8px] md:text-[10px] text-gray-400">/ 24 Jam</span>}
-               </div>
-            </div>
-
-            {/* Harga BBM + Driver */}
-            <div className="flex justify-between items-center bg-green-50 p-2 rounded-lg">
-               <span className="text-[#0B7A3E] text-[10px] md:text-xs font-bold">BBM + Driver</span>
-               <div className="text-right">
-                  <p className="font-bold text-[#0B7A3E] text-xs md:text-sm">{formatPrice(car.bbmDriver)}</p>
-                  <span className="text-[8px] md:text-[10px] text-gray-500">/ 12 Jam</span>
-               </div>
-            </div>
-         </div>
-
-         <button className="w-full bg-[#F59E0B] text-white py-2 rounded-lg text-sm font-bold hover:bg-amber-600 transition shadow-sm">
-           Order Here
-         </button>
       </div>
     </div>
   );
