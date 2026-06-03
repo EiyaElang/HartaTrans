@@ -4,16 +4,18 @@ import Home from './pages/Home';
 import Tour from './pages/Tour'; // Pastikan Tour di-import
 import Footer from './components/Footer';
 import TourDetail from './pages/TourDetail';
+import TripHarianDetail from './pages/TripHarianDetail'; // Tambahkan ini
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  const [selectedTourId, setSelectedTourId] = useState(''); // STATE BARU
   const [cart, setCart] = useState([]);
 
-  const navigateTo = (page) => {
+  const navigateTo = (page, paramId = '') => {
     setCurrentPage(page);
+    if(paramId) setSelectedTourId(paramId); // Set ID saat pindah halaman
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
   return (
     <div className="font-sans text-gray-800 bg-white relative">
       
@@ -22,7 +24,8 @@ export default function App() {
       <main className="w-full">
         {currentPage === 'home' && <Home navigateTo={navigateTo} />}
         {currentPage === 'tour' && <Tour navigateTo={navigateTo} />}
-        {currentPage === 'tourDetail' && <TourDetail navigateTo={navigateTo} />}
+        {currentPage === 'tourDetail' && <TourDetail navigateTo={navigateTo} tourId={selectedTourId} />}
+        {currentPage === 'tripHarianDetail' && <TripHarianDetail navigateTo={navigateTo} tourId={selectedTourId} />}
         
         {/* TAMBAHKAN currentPage !== 'tourDetail' DI BAWAH INI */}
         {currentPage !== 'home' && currentPage !== 'tour' && currentPage !== 'tourDetail' && (
