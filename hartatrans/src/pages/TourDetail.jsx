@@ -5,18 +5,17 @@ import { initialReviewsData } from '../data/dataReview';
 import { carsData } from '../data/carsData';
 import { driverData } from '../data/driverData';
 
-export default function TourDetail({ navigateTo, tourId }) {
-  // Ambil data tour dari master data berdasarkan tourId yang dilempar App.jsx
+export default function TourDetail({ navigateTo, tourId, addToCart }) { 
   const currentTour = detailedTours[tourId] || detailedTours['ph1']; 
 
   const [selectedPax, setSelectedPax] = useState('2-3 PAX');
   const [selectedHotel, setSelectedHotel] = useState('TANPA HOTEL');
   const [selectedCar, setSelectedCar] = useState('');
+  const [tourDate, setTourDate] = useState('');
+  const [selectedDriver, setSelectedDriver] = useState('');
   
-  // State Dinamis untuk menangkap pilihan hari
   const [daySelections, setDaySelections] = useState({});
 
-  // Reset pilihan hari setiap kali pindah ke paket tour baru
   useEffect(() => {
     const defaultSelections = {};
     currentTour.itinerary.forEach((item, index) => {
@@ -134,7 +133,7 @@ export default function TourDetail({ navigateTo, tourId }) {
               <div className="space-y-4">
                 <div className="flex flex-col">
                   <label className="text-[11px] font-bold text-gray-700 mb-1">Tanggal Tour</label>
-                  <input type="date" className="border border-gray-300 rounded-md p-2.5 text-sm w-full focus:outline-none focus:border-[#0B7A3E]" />
+                  <input type="date" value={tourDate} onChange={(e) => setTourDate(e.target.value)} className="border border-gray-300 rounded-md p-2.5 text-sm w-full focus:outline-none focus:border-[#0B7A3E]"/>
                 </div>
                 
                 <div className="flex flex-col">
@@ -148,9 +147,10 @@ export default function TourDetail({ navigateTo, tourId }) {
 
                 <div className="flex flex-col">
                   <label className="text-[11px] font-bold text-gray-700 mb-1">Pilih Driver</label>
-                  <select className="border border-gray-300 rounded-md p-2.5 text-sm w-full bg-white text-gray-900 font-medium focus:outline-none focus:border-[#0B7A3E]">
-                    <option value="">-- Pilih Driver Anda --</option>
-                    {driverData.map(d => <option key={d.id} value={d.name}>{d.name}</option>)}
+                  <select value={selectedDriver} onChange={(e) => setSelectedDriver(e.target.value)}
+                  className="border border-gray-300 rounded-md p-2.5 text-sm w-full bg-white text-gray-900 font-medium focus:outline-none focus:border-[#0B7A3E]">
+                  <option value="">-- Tanpa Driver Khusus --</option>
+                  {driverData.map(d => <option key={d.id} value={d.name}>{d.name}</option>)}
                   </select>
                 </div>
 
@@ -188,8 +188,19 @@ export default function TourDetail({ navigateTo, tourId }) {
                 </div>
               </div>
 
-              <button className="w-full bg-[#F59E0B] text-white font-bold py-3.5 rounded-md mt-6 shadow-md hover:bg-amber-600 transition flex items-center justify-center gap-2 text-sm">
-                 Masukkan ke Keranjang Tour
+              <button onClick={() => { 
+                if(!tourDate) { alert('Mohon pilih tanggal tour terlebih dahulu!'); return; }
+                addToCart({
+                  name: currentTour.title, 
+                  img: currentTour.image, 
+                  price: totalPrice, 
+                  tanggal: tourDate,
+                  kendaraan: selectedCar || 'Tanpa Kendaraan Tambahan',
+                  driver: selectedDriver || 'Tim Harta Trans'
+                });
+              }}
+              className="w-full bg-[#F59E0B] text-white font-bold py-3.5 rounded-md mt-6 shadow-md hover:bg-amber-600 transition flex items-center justify-center gap-2 text-sm"> 
+              Masukkan ke Keranjang Tour
               </button>
             </div>
           </div>

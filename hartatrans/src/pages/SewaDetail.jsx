@@ -4,7 +4,7 @@ import { carsData } from '../data/carsData';
 import { motorsData } from '../data/dataMotor';
 import { driverData } from '../data/driverData';
 
-export default function SewaDetail({ navigateTo, itemId }) {
+export default function SewaDetail({ navigateTo, itemId, addToCart }) {
   const carItem = carsData.find(c => c.id === itemId);
   const motorItem = motorsData.find(m => m.id === itemId);
   
@@ -136,16 +136,32 @@ export default function SewaDetail({ navigateTo, itemId }) {
                )}
             </div>
 
+            {/* SUMMARY & CHECKOUT */}
             <div className="mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+              
               <div className="w-full sm:w-auto">
                 <p className="text-xs font-bold text-gray-500 mb-1">Total Biaya ({totalDays} Hari)</p>
                 <p className="text-2xl font-bold text-gray-900">
                   Rp {formatPrice(totalBookingPrice)}
                 </p>
               </div>
-              <button className="w-full sm:w-auto flex-1 bg-[#F59E0B] text-white font-bold py-3.5 px-8 rounded-lg shadow-[0_4px_14px_0_rgba(245,158,11,0.39)] hover:bg-amber-600 hover:shadow-[0_6px_20px_rgba(245,158,11,0.23)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-sm">
+
+              <button 
+                onClick={() => addToCart({
+                  name: item.name,
+                  img: item.img,
+                  price: totalBookingPrice,
+                  tanggal: startDate && endDate ? `${startDate} s/d ${endDate}` : startDate || '-',
+                  driver: isCar && driverOption !== 'lepas_kunci' 
+                    ? (driverData.find(d => d.id === driverOption)?.name || 'Dengan Driver') 
+                    : (isCar ? 'Lepas Kunci' : null),
+                  kendaraan: null
+                })}
+                className="w-full sm:w-auto flex-1 bg-[#F59E0B] text-white font-bold py-3.5 px-8 rounded-lg shadow-[0_4px_14px_0_rgba(245,158,11,0.39)] hover:bg-amber-600 hover:shadow-[0_6px_20px_rgba(245,158,11,0.23)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-sm"
+              >
                  <ShoppingCart size={18} /> Tambah ke Keranjang
               </button>
+
             </div>
 
           </div>

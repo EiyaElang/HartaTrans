@@ -39,13 +39,14 @@ export default function Navbar({ currentPage, navigateTo, cartLength }) {
           <div className="w-[1px] h-6 bg-gray-200 mx-2"></div>
 
           {/* Tombol Keranjang Desain Baru */}
-          <button onClick={() => handleNav('cart')} className="ml-4 relative flex items-center gap-2 bg-[#E8F5E9] text-[#0B7A3E] px-6 py-2.5 rounded-full font-bold hover:bg-[#d1ebd6] transition shadow-sm" title="Keranjang Pesanan">
-            <ShoppingCart size={20} />
-            <span>Keranjang</span>
+          <button 
+            onClick={() => navigateTo('keranjang')} 
+            className="flex items-center bg-[#E8F5E9] text-[#0B7A3E] px-4 py-2 rounded-full font-bold hover:bg-[#C8E6C9] transition"
+          >
+            <ShoppingCart size={18} className="mr-2" />
+            Keranjang 
             {cartLength > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#F59E0B] text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white">
-                {cartLength}
-              </span>
+              <span className="ml-2 bg-[#0B7A3E] text-white text-xs px-2 py-0.5 rounded-full">{cartLength}</span>
             )}
           </button>
         </div>
