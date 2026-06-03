@@ -7,6 +7,8 @@ import TourDetail from './pages/TourDetail';
 import TripHarianDetail from './pages/TripHarianDetail';
 import Sewa from './pages/Sewa';
 import SewaDetail from './pages/SewaDetail';
+import Driver from './pages/Driver';
+import DriverDetail from './pages/DriverDetail';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -18,6 +20,7 @@ export default function App() {
     if(paramId) setSelectedId(paramId); 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
   return (
     <div className="font-sans text-gray-800 bg-white relative">
       
@@ -28,12 +31,19 @@ export default function App() {
         {currentPage === 'tour' && <Tour navigateTo={navigateTo} />}
         {currentPage === 'tourDetail' && <TourDetail navigateTo={navigateTo} tourId={selectedId} />}
         
-        {/* TAMBAHKAN 2 RUTE BARU INI */}
+        {/* --- TAMBAHKAN RUTE TRIP HARIAN DI SINI --- */}
+        {currentPage === 'tripHarianDetail' && <TripHarianDetail navigateTo={navigateTo} tourId={selectedId} />}
+        
+        {/* Rute Sewa */}
         {currentPage === 'sewa' && <Sewa navigateTo={navigateTo} />}
         {currentPage === 'sewaDetail' && <SewaDetail navigateTo={navigateTo} itemId={selectedId} />}
         
+        {/* Rute Driver */}
+        {currentPage === 'driver' && <Driver navigateTo={navigateTo} />}
+        {currentPage === 'driverDetail' && <DriverDetail navigateTo={navigateTo} itemId={selectedId} />}
+        
         {/* Update kondisi halaman belum dirakit */}
-        {currentPage !== 'home' && currentPage !== 'tour' && currentPage !== 'tourDetail' && currentPage !== 'tripHarianDetail' && currentPage !== 'sewa' && currentPage !== 'sewaDetail' && (
+        {currentPage !== 'home' && currentPage !== 'tour' && currentPage !== 'tourDetail' && currentPage !== 'tripHarianDetail' && currentPage !== 'sewa' && currentPage !== 'sewaDetail' && currentPage !== 'driver' && currentPage !== 'driverDetail' && (
           <div className="flex flex-col items-center justify-center pt-32 pb-32 px-4 text-center min-h-[70vh]">
             <h2 className="text-2xl font-bold text-gray-400 mb-4">
               Halaman <span className="uppercase text-[#0B7A3E]">{currentPage}</span> belum dirakit! 🚧
