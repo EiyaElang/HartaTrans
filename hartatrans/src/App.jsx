@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 
-// 1. IMPORT KOMPONEN & HALAMAN
 import Navbar from './components/Navbar';
-import Home from './pages/Home'; // <--- Memanggil Home.jsx dari folder pages
+import Home from './pages/Home'; 
+import Footer from './components/Footer';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
-  const [cart, setCart] = useState([]); // Keranjang sementara masih kosong
+  const [cart, setCart] = useState([]); 
 
-  // Fungsi untuk pindah halaman
   const navigateTo = (page) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -18,20 +17,20 @@ export default function App() {
     // Hanya ada SATU div pembungkus utama di sini
     <div className="font-sans text-gray-800 bg-white relative">
       
-      {/* NAVBAR */}
+      {/* NAVBAR (Selalu muncul di atas) */}
       <Navbar 
         currentPage={currentPage} 
         navigateTo={navigateTo} 
         cartLength={cart.length} 
       />
 
-      {/* AREA KONTEN UTAMA */}
+      {/* AREA KONTEN UTAMA (Berubah sesuai halaman yang diklik) */}
       <main className="w-full">
         {currentPage === 'home' && <Home navigateTo={navigateTo} />}
         
         {/* Placeholder halaman lain */}
         {currentPage !== 'home' && (
-          <div className="flex flex-col items-center justify-center pt-32 px-4 text-center">
+          <div className="flex flex-col items-center justify-center pt-32 pb-32 px-4 text-center min-h-[70vh]">
             <h2 className="text-2xl font-bold text-gray-400 mb-4">
               Halaman <span className="uppercase text-[#0B7A3E]">{currentPage}</span> belum dirakit! 🚧
             </h2>
@@ -44,6 +43,8 @@ export default function App() {
           </div>
         )}
       </main>
+
+      <Footer /> 
 
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, CarFront, Contact } from 'lucide-react';
+import { Clock, CarFront, Contact, Star } from 'lucide-react';
 
 // Import Komponen & Data
 import CarCard from '../components/CarCard';
@@ -210,7 +210,44 @@ export default function Home({ navigateTo }) {
            Jadikan setiap perjalanan anda lebih istimewa selama di Lombok
          </h3>
       </section>
+      
+      {/* ========================================= */}
+      {/* 9. ULASAN PELANGGAN */}
+      {/* ========================================= */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-[1400px]">
+          <h2 className="text-center text-[#F59E0B] text-xl md:text-2xl font-bold tracking-[0.15em] mb-12 uppercase">
+            Ulasan Pelanggan
+          </h2>
 
+          {/* Grid Review (Nanti kotak ini bisa kamu ganti dengan script widget dari Elfsight/Trustindex) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[1, 2, 3, 4].map((item) => (
+              <div key={item} className="bg-white p-6 rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] border border-gray-100">
+                <h4 className="font-bold text-gray-900 text-[17px]">Nama User</h4>
+                <p className="text-xs text-gray-400 mb-4">1 Year Ago</p>
+                
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={16} fill="#F59E0B" className="text-[#F59E0B]" />
+                  ))}
+                </div>
+                
+                <p className="text-[15px] text-gray-700 leading-relaxed">
+                  driver nya berpengalaman, ramah pelayanannya, pokoknya jangan ragu sewa mobil...
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <button className="bg-[#F59E0B] text-white px-8 py-3.5 rounded-md font-bold hover:bg-amber-600 transition shadow-md text-[14px] tracking-wide">
+              TULIS REVIEW
+            </button>
+          </div>
+        </div>
+      </section>
+      
     </div>
     
   );
