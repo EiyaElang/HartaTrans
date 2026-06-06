@@ -115,7 +115,7 @@ export default function Home({ navigateTo }) {
             <div className="w-24 md:w-32 h-1.5 bg-[#0B7A3E]"></div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
             {regularCars.map((car) => (
               <CarCard key={car.id} car={car} navigateTo={navigateTo} />
             ))}
@@ -137,7 +137,7 @@ export default function Home({ navigateTo }) {
             <div className="w-24 md:w-32 h-1.5 bg-[#0B7A3E]"></div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
             {bisnisCars.map((car) => (
               <CarCard key={car.id} car={car} navigateTo={navigateTo} />
             ))}
@@ -192,7 +192,7 @@ export default function Home({ navigateTo }) {
            <img src={imgBannerTour} alt="Banner Tour" className="w-full h-full object-cover object-left" />
         </div>
 
-        {/* Desktop Green Diagonal Overlay (FIX GARIS PUTIH HILANG) */}
+        {/* Desktop Green Diagonal Overlay */}
         {/* Langsung pasang bg hijau, miringkan, dan beri border tanpa bungkus overflow */}
         <div className="hidden md:block absolute -top-10 -bottom-10 left-[48%] w-[60%] bg-[#0B7A3E] z-10 transform -skew-x-[12deg] border-l-[6px] border-white"></div>
 

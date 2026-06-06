@@ -53,7 +53,7 @@ export default function Navbar({ currentPage, navigateTo, cartLength }) {
 
         {/* Area Kanan untuk Mobile (HP) */}
         <div className="flex md:hidden items-center gap-3">
-           <button onClick={() => handleNav('cart')} className="relative flex items-center justify-center bg-[#E8F5E9] text-[#0B7A3E] p-2 rounded-full">
+           <button onClick={() => navigateTo('keranjang')} className="relative flex items-center justify-center bg-[#E8F5E9] text-[#0B7A3E] p-2 rounded-full">
               <ShoppingCart size={20} />
               {cartLength > 0 && (
                 <span className="absolute -top-1 -right-1 bg-[#F59E0B] text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center border-2 border-white">
@@ -76,7 +76,7 @@ export default function Navbar({ currentPage, navigateTo, cartLength }) {
             <button onClick={() => handleNav('sewa')} className={`text-left py-4 border-b flex justify-between items-center ${currentPage === 'sewa' ? 'text-[#0B7A3E]' : ''}`}>Sewa Mobil <ChevronRight size={18} className="text-gray-400"/></button>
             <button onClick={() => handleNav('driver')} className={`text-left py-4 border-b flex justify-between items-center ${currentPage === 'driver' ? 'text-[#0B7A3E]' : ''}`}>Our Driver <ChevronRight size={18} className="text-gray-400"/></button>
             
-            <button onClick={() => handleNav('cart')} className="mt-8 bg-[#0B7A3E] text-white p-4 rounded-2xl flex justify-center items-center gap-2 shadow-lg">
+            <button onClick={() => navigateTo('keranjang')} className="mt-8 bg-[#0B7A3E] text-white p-4 rounded-2xl flex justify-center items-center gap-2 shadow-lg">
                <ShoppingCart size={22} /> Lihat Keranjang ({cartLength})
             </button>
           </div>
